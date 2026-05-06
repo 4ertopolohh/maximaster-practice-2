@@ -1,0 +1,83 @@
+@use 'sass:map';
+
+$max-width-container: 1470px;
+
+$transition-style: all 500ms ease;
+
+$font-default: 'SN Pro', sans-serif;
+
+$color-black-base: #303030;
+$color-white: #fff;
+$color-white-base: #f2f2f2;
+$color-white-background: #E5E5E5;
+$color-red-base: #ff0101;
+$color-gray-base: #686868;
+$color-gray-accent: #D1D1D1;
+$color-gray-accent-black: #424242;
+$color-gray-glass: #e3e3e3;
+$color-gray-glass-stroke: #C9C9C9;
+$color-gray-scale-background: #AAAAAA;
+$color-green-base: #70E9A4;
+$color-yellow-base: #F7A829;
+
+$glass-light-matte-strong: (
+    background: rgba($color-gray-glass, 0.64),
+    border-color: rgba($color-gray-glass-stroke, 1),
+    backdrop-filter: blur(15px),
+);
+
+$glass-white-matte-strong: (
+    background: rgba($color-white-base, 0.64),
+    border-color: rgba($color-gray-glass-stroke, 1),
+    backdrop-filter: blur(15px),
+);
+
+$glass-base-red-matte-lite: (
+    background: rgba($color-red-base, 0.30),
+    border-color: rgba($color-red-base, 0.2),
+    backdrop-filter: blur(6px),
+);
+
+@mixin apply-glass-surface($glass-style) {
+    background: map.get($glass-style, background);
+    border-color: map.get($glass-style, border-color);
+    -webkit-backdrop-filter: map.get($glass-style, backdrop-filter);
+    backdrop-filter: map.get($glass-style, backdrop-filter);
+}
+
+@mixin flex($justify, $align, $direction) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+}
+
+@mixin flex-center-row {
+    @include flex(center, center, row);
+}
+
+@mixin flex-center-column {
+    @include flex(center, center, column);
+}
+
+@mixin flex-between-row {
+    @include flex(space-between, center, row);
+}
+
+@mixin flex-between-column {
+    @include flex(space-between, center, column);
+}
+
+@mixin flex-in-dev {
+    @include flex(center, center, row);
+}
+
+@mixin transform-scale-style {
+    transform: translateZ(0);
+    transform-origin: center;
+    backface-visibility: hidden;
+    will-change: transform, background-color;
+    transition:
+        transform 500ms ease,
+        background-color 500ms ease;
+}

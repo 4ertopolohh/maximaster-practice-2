@@ -1,0 +1,25 @@
+@use '../../../../styles/variables' as *;
+
+.section{
+    @include flex-center-column;
+    padding-top: 25px;
+    padding-bottom: 100px;
+
+    .container{
+        flex-direction: column;
+        gap: 20px;
+
+        .filters{
+            @include flex-center-row;
+            gap: 5px;
+            justify-content: start;
+        }
+
+        .content{
+            width: 100%;
+            @include flex-between-row;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    }
+}

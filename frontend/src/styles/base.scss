@@ -1,0 +1,136 @@
+@use '../styles/variables' as *;
+
+section {
+    @include flex-center-column;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-family: $font-default;
+    color: $color-black-base;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        padding: 0 0;
+        margin: 0 0;
+        font-family: $font-default;
+        color: $color-black-base;
+    }
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: $color-white-base;
+}
+
+main {
+    width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 !important;
+    padding: 0;
+    font-family: $font-default;
+    font-weight: 700;
+    color: $color-black-base;
+    line-height: 1;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: $transition-style;
+    padding: 0 0;
+    margin: 0 0;
+    font-family: $font-default;
+    -webkit-appearance: none;
+    appearance: none;
+    color: $color-black-base;
+}
+
+span {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    transition: $transition-style;
+    color: $color-black-base;
+    font-family: $font-default;
+    cursor: pointer;
+}
+
+a:hover,
+a:focus,
+a:focus-visible,
+a:active {
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
+}
+
+button:hover,
+button:focus,
+button:focus-visible,
+button:active {
+    outline: none;
+    box-shadow: none;
+}
+
+input,
+textarea,
+select {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input:hover,
+input:focus,
+input:focus-visible,
+input:active,
+textarea:hover,
+textarea:focus,
+textarea:focus-visible,
+textarea:active,
+select:hover,
+select:focus,
+select:focus-visible,
+select:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.App {
+    color: $color-black-base;
+    margin: 0;
+    width: 100%;
+}
+
+.container {
+    max-width: $max-width-container;
+    width: 100%;
+    padding: 0 0;
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 auto;
+}
+
+.blockSpan{
+    line-height: 1;
+    padding-top: 3px;
+    display: inline-block;
+}

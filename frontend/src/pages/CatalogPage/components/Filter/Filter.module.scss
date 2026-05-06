@@ -1,0 +1,35 @@
+@use '../../../../styles/variables' as *;
+
+.filter{
+    @include flex-center-row;
+    gap: 3px;
+    background-color: $color-white;
+    border-radius: 10px;
+    border: 1px solid $color-gray-accent;
+    padding: 10px;
+    @include transform-scale-style;
+
+    &:hover{
+        transform: scale(0.98);
+    }
+
+    .title{
+        font-size: 14px;
+    }
+
+    .icon{
+        width: auto;
+        height: 12px;
+        transition: transform 300ms ease;
+    }
+}
+
+.active{
+    background-color: $color-red-base;
+    border: 1px solid $color-red-base;
+    color: $color-white;
+}
+
+.iconActive{
+    transform: rotate(180deg);
+}
