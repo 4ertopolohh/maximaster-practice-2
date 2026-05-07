@@ -1,33 +1,28 @@
-﻿import { useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useState } from 'react';
 
 import Filter from '../Filter/Filter';
 import CatalogPageTitle from '../CatalogPageTitle/CatalogPageTitle';
 import styles from '../CatalogSection/CatalogSection.module.scss';
 import ProductCard from '../ProductCard/ProductCard';
 
-import product1 from '../../../../assets/images/pictures/product1.jpg';
-
 type FilterKey = 'price' | 'alphabet';
 type SortDirection = 'asc' | 'desc';
+
+type ProductApiItem = {
+    id: number;
+    name: string;
+    price: number | string;
+    in_stock: boolean;
+    preview_image: string | null;
+};
 
 type Product = {
     id: number;
     title: string;
     price: number;
     inStock: boolean;
-    imageUrl: string;
+    imageUrl: string | null;
 };
-
-const products: Product[] = [
-    { id: 1, title: 'Ананас', price: 320, inStock: true, imageUrl: product1 },
-    { id: 2, title: 'Яблоко', price: 180, inStock: true, imageUrl: product1 },
-    { id: 3, title: 'Вишня', price: 250, inStock: false, imageUrl: product1 },
-    { id: 4, title: 'Груша', price: 150, inStock: true, imageUrl: product1 },
-    { id: 5, title: 'Apple Juice', price: 210, inStock: true, imageUrl: product1 },
-    { id: 6, title: 'Banana Mix', price: 140, inStock: false, imageUrl: product1 },
-    { id: 7, title: 'Cherry Pie', price: 390, inStock: true, imageUrl: product1 },
-    { id: 8, title: 'Date Syrup', price: 275, inStock: true, imageUrl: product1 },
-];
 
 const isRussianLetter = (value: string) => /[А-Яа-яЁё]/.test(value);
 const isEnglishLetter = (value: string) => /[A-Za-z]/.test(value);
@@ -47,11 +42,54 @@ const getAlphabetGroup = (title: string): 'ru' | 'en' | 'other' => {
 };
 
 const CatalogSection = () => {
+    const [products, setProducts] = useState<Product[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
     const [activeFilter, setActiveFilter] = useState<FilterKey | null>(null);
     const [directions, setDirections] = useState<Record<FilterKey, SortDirection>>({
         price: 'asc',
         alphabet: 'asc',
     });
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        const loadProducts = async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+
+                const response = await fetch('/api/products/', { signal: controller.signal });
+                if (!response.ok) {
+                    throw new Error('Не удалось загрузить товары.');
+                }
+
+                const data: ProductApiItem[] = await response.json();
+                const preparedProducts = data.map((item) => ({
+                    id: item.id,
+                    title: item.name,
+                    price: typeof item.price === 'string' ? Number(item.price) : item.price,
+                    inStock: item.in_stock,
+                    imageUrl: item.preview_image,
+                }));
+
+                setProducts(preparedProducts);
+            } catch (err) {
+                if (err instanceof Error && err.name !== 'AbortError') {
+                    setError(err.message);
+                }
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadProducts();
+
+        return () => {
+            controller.abort();
+        };
+    }, []);
 
     const handleFilterClick = (filterKey: FilterKey) => {
         if (activeFilter !== filterKey) {
@@ -105,7 +143,7 @@ const CatalogSection = () => {
             .sort(compareByAlphabet);
 
         return [...ruProducts, ...enProducts, ...otherProducts];
-    }, [activeFilter, directions]);
+    }, [activeFilter, directions, products]);
 
     const isPriceActive = activeFilter === 'price';
     const isAlphabetActive = activeFilter === 'alphabet';
@@ -131,7 +169,9 @@ const CatalogSection = () => {
                 </div>
 
                 <div className={styles.content}>
-                    {sortedProducts.map((product) => (
+                    {isLoading && <p>Загрузка товаров...</p>}
+                    {!isLoading && error && <p>{error}</p>}
+                    {!isLoading && !error && sortedProducts.map((product) => (
                         <ProductCard
                             key={product.id}
                             id={product.id}
@@ -139,6 +179,7 @@ const CatalogSection = () => {
                             price={product.price}
                             inStock={product.inStock}
                             imageUrl={product.imageUrl}
+                            imageAlt={`Фото товара ${product.title}`}
                         />
                     ))}
                 </div>
@@ -148,3 +189,4 @@ const CatalogSection = () => {
 }
 
 export default CatalogSection;
+

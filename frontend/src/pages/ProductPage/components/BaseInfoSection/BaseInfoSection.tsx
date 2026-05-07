@@ -1,43 +1,53 @@
-import AddToCartButton from '../../../../components/AddToCartButton/AddToCartButton';
+﻿import AddToCartButton from '../../../../components/AddToCartButton/AddToCartButton';
 import BuyButton from '../../../../components/BuyButton/BuyButton';
 import styles from '../BaseInfoSection/BaseInfoSection.module.scss';
+
+type Characteristic = {
+    label: string;
+    value: string;
+};
+
+type ImageItem = {
+    image: string;
+    alt_text: string;
+};
 
 export type BaseInfoSectionProps = {
     title: string;
     description: string;
-    characteristics: {
-        label: string;
-        value: string;
-    }[];
-    images: {
-        preview: string;
-        galery: string[];
-    }
-}
+    price: number;
+    characteristics: Characteristic[];
+    images: ImageItem[];
+};
 
-const BaseInfoSection = (props: BaseInfoSectionProps) => {
+const BaseInfoSection = ({ title, description, price, characteristics, images }: BaseInfoSectionProps) => {
+    const mainImage = images[0];
+
     return(
         <section className={styles.baseInfoSection}>
             <div className={`container ${styles.container}`}>
                 <div className={styles.preview}>
                     <div className={styles.image}>
-                        <img src={props.images.preview} alt={props.title} loading='lazy'/>
+                        {mainImage && <img src={mainImage.image} alt={mainImage.alt_text || title} loading='lazy'/>}
                     </div>
                     <div className={styles.galery}>
                         <ul className={styles.list}>
-                            <li className={styles.item}>
-                                <button className={styles.miniature}>
-                                    <img src={props.images.galery[0]} alt={props.title} loading='lazy'/>
-                                </button>
-                            </li>
+                            {images.map((image, index) => (
+                                <li key={`${image.image}-${index}`} className={styles.item}>
+                                    <button className={styles.miniature} type='button'>
+                                        <img src={image.image} alt={image.alt_text || title} loading='lazy'/>
+                                    </button>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
                 <div className={styles.info}>
-                    <h1 className={styles.title}>{props.title}</h1>
-                    <p className={styles.description}>{props.description}</p>
+                    <h1 className={styles.title}>{title}</h1>
+                    <p className={styles.price}>{price.toFixed(2)} ₽</p>
+                    <p className={styles.description}>{description}</p>
                     <ul className={styles.characteristics}>
-                        {props.characteristics.map((char, index) => (
+                        {characteristics.map((char, index) => (
                             <li key={index} className={styles.characteristic}>
                                 <span className={styles.label}>{char.label}</span>
                                 <span className={styles.value}>{char.value}</span>
@@ -55,3 +65,4 @@ const BaseInfoSection = (props: BaseInfoSectionProps) => {
 }
 
 export default BaseInfoSection;
+

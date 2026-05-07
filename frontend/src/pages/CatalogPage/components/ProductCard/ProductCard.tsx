@@ -1,4 +1,6 @@
-﻿import AddToCartButton from '../../../../components/AddToCartButton/AddToCartButton';
+﻿import { Link } from 'react-router-dom';
+
+import AddToCartButton from '../../../../components/AddToCartButton/AddToCartButton';
 import BuyButton from '../../../../components/BuyButton/BuyButton';
 import styles from '../ProductCard/ProductCard.module.scss';
 
@@ -7,13 +9,25 @@ export type ProductCardProps = {
     title: string;
     price: number;
     inStock: boolean;
-    imageUrl: string;
+    imageUrl: string | null;
+    imageAlt?: string;
 }
 
-const ProductCard = ({ id, title, price, inStock, imageUrl }: ProductCardProps) => {
+const ProductCard = ({ id, title, price, inStock, imageUrl, imageAlt }: ProductCardProps) => {
     return(
         <div className={styles.card} data-product-id={id}>
-            <img src={imageUrl} alt='Фото продукта' loading='lazy' className={styles.image}/>
+            <Link to={`/products/${id}`} className={styles.imageLink}>
+                {imageUrl ? (
+                    <img
+                        src={imageUrl}
+                        alt={imageAlt || `Фото товара ${title}`}
+                        loading='lazy'
+                        className={styles.image}
+                    />
+                ) : (
+                    <div className={styles.imagePlaceholder} aria-label={`Изображение товара ${title} отсутствует`} />
+                )}
+            </Link>
 
             <h3 className={styles.title}>{title}</h3>
 
@@ -31,3 +45,4 @@ const ProductCard = ({ id, title, price, inStock, imageUrl }: ProductCardProps) 
 }
 
 export default ProductCard;
+
