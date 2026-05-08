@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom';
 
 import BaseInfoSection from './components/BaseInfoSection/BaseInfoSection';
+import CharacteristicsSection from './components/CharacteristicsSection/CharacteristicsSection';
 
 type ProductImage = {
     id: number;
@@ -121,6 +122,10 @@ const ProductPage = () => {
                 characteristics={characteristics}
                 images={galleryImages}
             />
+            <CharacteristicsSection characteristics={product.characteristics.map((char) => ({
+                name: char.parameter,
+                value: char.value,
+            }))} />
         </main>
     );
 };

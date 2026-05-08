@@ -1,0 +1,40 @@
+@use '../../../../styles/variables' as *;
+
+.characteristicsSection{
+    margin-bottom: 50px;
+
+    .container{
+        background-color: $color-white;
+        border-radius: 25px;
+        border: 1px solid $color-gray-accent;
+        padding: 20px;
+        flex-direction: column;
+        gap: 25px;
+        padding-bottom: 30px !important;
+        
+        .title{
+            font-size: 32px;
+            font-weight: 800;
+        }
+
+        .item{
+            height: 45px;
+            border-bottom: 1px solid $color-gray-accent;
+            @include flex-center-row;
+            justify-content: start;
+            gap: 50px;
+
+            .name{
+                font-size: 16px;
+                font-weight: 400;
+                width: 300px;
+                color: $color-gray-base;
+            }
+
+            .value{
+                font-size: 20px;
+                font-weight: 400;
+            }
+        }
+    }
+}

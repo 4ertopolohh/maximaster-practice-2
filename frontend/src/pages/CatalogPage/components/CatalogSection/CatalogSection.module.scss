@@ -1,6 +1,6 @@
 @use '../../../../styles/variables' as *;
 
-.section{
+.catalogSection{
     @include flex-center-column;
     padding-top: 25px;
     padding-bottom: 100px;

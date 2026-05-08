@@ -149,7 +149,7 @@ const CatalogSection = () => {
     const isAlphabetActive = activeFilter === 'alphabet';
 
     return(
-        <section className={styles.section}>
+        <section className={styles.catalogSection}>
             <div className={`container ${styles.container}`}>
                 <CatalogPageTitle />
 

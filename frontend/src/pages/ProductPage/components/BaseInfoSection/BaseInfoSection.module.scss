@@ -2,7 +2,7 @@
 
 .baseInfoSection{
     margin-top: 25px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 
     .container{
         background-color: $color-white;
@@ -12,6 +12,7 @@
         width: 100%;
         padding: 15px;
         gap: 20px;
+        border: 1px solid $color-gray-accent;
 
         .preview{
             max-width: 50%;
