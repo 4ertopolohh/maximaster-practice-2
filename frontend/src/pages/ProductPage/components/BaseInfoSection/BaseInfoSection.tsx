@@ -44,16 +44,16 @@ const BaseInfoSection = ({ title, description, price, characteristics, images }:
                 </div>
                 <div className={styles.info}>
                     <h1 className={styles.title}>{title}</h1>
-                    <p className={styles.price}>{price.toFixed(2)} ₽</p>
                     <p className={styles.description}>{description}</p>
                     <ul className={styles.characteristics}>
                         {characteristics.map((char, index) => (
                             <li key={index} className={styles.characteristic}>
-                                <span className={styles.label}>{char.label}</span>
+                                <span className={styles.label}>{char.label}</span>: 
                                 <span className={styles.value}>{char.value}</span>
                             </li>
                         ))}
                     </ul>
+                    <p className={styles.price}>{price.toFixed(2)} ₽</p>
                     <div className={styles.buttons}>
                         <BuyButton />
                         <AddToCartButton />    

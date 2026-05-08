@@ -1,0 +1,114 @@
+@use '../../../../styles/variables' as *;
+
+.baseInfoSection{
+    margin-top: 25px;
+    margin-bottom: 100px;
+
+    .container{
+        background-color: $color-white;
+        border-radius: 25px;
+        @include flex-between-row;
+        align-items: stretch;
+        width: 100%;
+        padding: 15px;
+        gap: 20px;
+
+        .preview{
+            max-width: 50%;
+            @include flex-center-column;
+
+            .image{
+                width: 500px;
+                height: 500px;
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .galery{
+                width: 100%;
+
+                .list{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    width: 100%;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    gap: 10px;
+                    flex-wrap: nowrap;
+                    margin: 0;
+                    padding: 0 0 4px;
+                    list-style: none;
+                    -webkit-overflow-scrolling: touch;
+                    scroll-behavior: smooth;
+
+                    .item{
+                        flex: 0 0 100px;
+                        height: 100px;
+
+                        .miniature{
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            border: 1px solid $color-gray-accent;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            padding: 0;
+                            background: transparent;
+                            cursor: pointer;
+
+                            img{
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .info{
+            max-width: 50%;
+            @include flex-center-column;
+            align-items: start;
+            justify-content: end;
+            gap: 30px;
+
+            .title{
+                font-weight: 800;
+                height: 100px;
+            }
+
+            .description{
+                color: $color-gray-base;
+                width: 90%;
+                height: 110px;
+            }
+
+            .characteristics{
+                @include flex-center-column;
+                align-items: start;
+                gap: 5px;
+            }
+
+            .price{
+                color: $color-red-base;
+                font-weight: 800;
+                font-size: 32px;
+            }
+
+            .buttons{
+                width: 100%;
+                @include flex-center-column;
+                gap: 10px;
+                // margin-top: auto;
+            }
+        }
+    }
+}
+
