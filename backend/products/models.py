@@ -50,7 +50,7 @@ class ProductImage(models.Model):
                 fields=("product",),
                 condition=Q(is_preview=True),
                 name="unique_preview_image_per_product",
-                violation_error_message="У товара может быть только одно превью-изображение.",
+                violation_error_message="У товара может быть только одно изображение, помеченное как превью.",
             )
         ]
 
