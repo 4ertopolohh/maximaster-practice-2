@@ -1,4 +1,6 @@
-﻿import AddToCartButton from '../../../../components/AddToCartButton/AddToCartButton';
+﻿import { useEffect, useState } from 'react';
+
+import AddToCartButton from '../../../../components/AddToCartButton/AddToCartButton';
 import BuyButton from '../../../../components/BuyButton/BuyButton';
 import styles from '../BaseInfoSection/BaseInfoSection.module.scss';
 
@@ -21,7 +23,13 @@ export type BaseInfoSectionProps = {
 };
 
 const BaseInfoSection = ({ title, description, price, characteristics, images }: BaseInfoSectionProps) => {
-    const mainImage = images[0];
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+    useEffect(() => {
+        setSelectedImageIndex(0);
+    }, [images]);
+
+    const mainImage = images[selectedImageIndex] ?? images[0];
 
     return(
         <section className={styles.baseInfoSection}>
@@ -34,7 +42,11 @@ const BaseInfoSection = ({ title, description, price, characteristics, images }:
                         <ul className={styles.list}>
                             {images.map((image, index) => (
                                 <li key={`${image.image}-${index}`} className={styles.item}>
-                                    <button className={styles.miniature} type='button'>
+                                    <button
+                                        className={styles.miniature}
+                                        type='button'
+                                        onClick={() => setSelectedImageIndex(index)}
+                                    >
                                         <img src={image.image} alt={image.alt_text || title} loading='lazy'/>
                                     </button>
                                 </li>
@@ -65,4 +77,3 @@ const BaseInfoSection = ({ title, description, price, characteristics, images }:
 }
 
 export default BaseInfoSection;
-

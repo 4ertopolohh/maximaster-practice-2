@@ -77,7 +77,7 @@ const CatalogSection = () => {
                 setProducts(preparedProducts);
             } catch (err) {
                 if (err instanceof Error && err.name !== 'AbortError') {
-                    setError(err.message);
+                    setError('Товары сейчас недоступны');
                 }
             } finally {
                 setIsLoading(false);
@@ -189,4 +189,3 @@ const CatalogSection = () => {
 }
 
 export default CatalogSection;
-

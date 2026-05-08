@@ -17,10 +17,13 @@
         .preview{
             max-width: 50%;
             @include flex-center-column;
+            gap: 10px;
 
             .image{
                 width: 500px;
                 height: 500px;
+                border-radius: 15px;
+                overflow: hidden;
 
                 img{
                     width: 100%;
