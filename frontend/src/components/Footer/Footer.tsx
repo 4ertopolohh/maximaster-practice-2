@@ -14,7 +14,7 @@ const Footer = () => {
                     <p>Май 2026</p>
                 </div> 
 
-                <p className={styles.description}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum nostrum quas optio, voluptate expedita ipsam itaque magnam odit dolor quam. Commodi consectetur libero distinctio ratione. Expedita temporibus dolor fugit nostrum?</p>
+                <p className={styles.description}>Веб приложение каталога товаров, включающее клиентскую витрину, серверный API и административный интерфейс для управления товарными данными.</p>
 
                 <div className={styles.links}>
 
